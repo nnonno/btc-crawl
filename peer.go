@@ -5,7 +5,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/btcsuite/btcd/wire"
+	"github.com/btcsuite/btcd"
 )
 
 type Peer struct {
@@ -60,7 +60,7 @@ func (p *Peer) Handshake() error {
 	}
 	p.nonce = nonce
 
-	msgVersion, err := wire.NewMsgVersionFromConn(p.conn, p.nonce, 0)
+	msgVersion, err := btcd.wire.NewMsgVersionFromConn(p.conn, p.nonce, 0)
 	msgVersion.UserAgent = p.client.userAgent
 	msgVersion.DisableRelayTx = true
 	if err := p.WriteMessage(msgVersion); err != nil {
