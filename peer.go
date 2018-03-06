@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 	"time"
-	"github.com/davecgh/go-spew/spew"
+	
 	"github.com/btcsuite/btcd/wire"
 )
 
@@ -60,10 +60,16 @@ func (p *Peer) Handshake() error {
 	}
 	p.nonce = nonce
 
-	tcpAddrMe := &net.TCPAddr{IP: net.ParseIP("127.0.0.1"), Port: 8333}
-	me := NewNetAddress(tcpAddrMe, SFNodeNetwork)
+	lna, err := NewNetAddress(conn.LocalAddr(), 0)
+	if err != nil {
+		return nil, err
+	}
+	rna, err := NewNetAddress(conn.RemoteAddr(), 0)
+	if err != nil {
+		return nil, err
+	}
 	
-	msgVersion := wire.NewMsgVersion(me, p.conn, p.nonce, 0)
+	msgVersion := wire.NewMsgVersion(lna, rna, p.nonce, 0)
 	msgVersion.UserAgent = p.client.userAgent
 	msgVersion.DisableRelayTx = true
 	if err := p.WriteMessage(msgVersion); err != nil {
