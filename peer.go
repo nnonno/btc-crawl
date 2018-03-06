@@ -60,7 +60,10 @@ func (p *Peer) Handshake() error {
 	}
 	p.nonce = nonce
 
-	msgVersion := wire.NewMsgVersion(p.conn, p.nonce, 0)
+	tcpAddrMe := &net.TCPAddr{IP: net.ParseIP("127.0.0.1"), Port: 8333}
+	me := NewNetAddress(tcpAddrMe, SFNodeNetwork)
+	
+	msgVersion := wire.NewMsgVersion(me, p.conn, p.nonce, 0)
 	msgVersion.UserAgent = p.client.userAgent
 	msgVersion.DisableRelayTx = true
 	if err := p.WriteMessage(msgVersion); err != nil {
