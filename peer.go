@@ -60,8 +60,8 @@ func (p *Peer) Handshake() error {
 	}
 	p.nonce = nonce
 
-	lna, err := NewNetAddress(conn.LocalAddr(), 0)
-	rna, err := NewNetAddress(conn.RemoteAddr(), 0)
+	lna, err := wire.NewNetAddress(p.conn.LocalAddr(), 0)
+	rna, err := wire.NewNetAddress(p.conn.RemoteAddr(), 0)
 	
 	msgVersion := wire.NewMsgVersion(lna, rna, p.nonce, 0)
 	msgVersion.UserAgent = p.client.userAgent
