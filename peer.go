@@ -61,10 +61,10 @@ func (p *Peer) Handshake() error {
 	p.nonce = nonce
 	
 // 	lhost, lstrPort, _ := net.SplitHostPort(p.conn.localaddr())
-	lna, err := wire.NewNetAddress(&net.TCPAddr{IP: net.ParseIP(p.conn.LocalAddr().String()), Port: 8333}, 0)
+	lna := wire.NewNetAddress(&net.TCPAddr{IP: net.ParseIP(p.conn.LocalAddr().String()), Port: 8333}, 0)
 	
 // 	rhost, rstrPort, _ := net.SplitHostPort(p.conn.raddr)
-	rna, err := wire.NewNetAddress(&net.TCPAddr{IP: net.ParseIP(p.conn.RemoteAddr().String()), Port: 8333}, 0)
+	rna := wire.NewNetAddress(&net.TCPAddr{IP: net.ParseIP(p.conn.RemoteAddr().String()), Port: 8333}, 0)
 	
 	msgVersion := wire.NewMsgVersion(lna, rna, p.nonce, 0)
 	msgVersion.UserAgent = p.client.userAgent
