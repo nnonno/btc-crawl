@@ -4,6 +4,11 @@ import (
 	"fmt"
 	"net"
 	"time"
+	"bytes"
+	"io"
+	"reflect"
+	"strings"
+	"testing"
 
 	"github.com/btcsuite/btcd/wire"
 )
