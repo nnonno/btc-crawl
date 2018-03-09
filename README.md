@@ -13,10 +13,11 @@ stdout.~~
 
 
 ## Usage
-
 ```
-$ go get github.com/shazow/btc-crawl
-$ btc-crawl --help
+$ go get github.com/nnonno/btc-crawl
+$ cd ~/go/src/github.com/nnonno/btc-crawl/
+$ go build .
+$ ./btc-crawl --help
 ...
 $ btc-crawl \
   --concurrency=100 \
